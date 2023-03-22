@@ -50,4 +50,38 @@ class MessageController extends Controller
         // at the end we make a redirect to the url /messages
         return redirect('/messages');        
     }
+
+    public function details($id) {
+
+
+        // ask the database for the message with the ID that we got
+        // as a parameter. It is the same ID that we used to
+        // generate the links to the message details
+        // and the same ID that web.php took out of the link and
+        // "passed it on" to the controller   
+        $message = Message::findOrFail($id);
+       
+        // we return the view messageDetails.blade.php
+        // and we also pass it the Message-Object that we got
+        // back from the function findOrFail   
+        return view('messageDetails', ['message' => $message]);
+    } 
+
+    public function delete($id) {
+
+
+        // ask the database for the message with the ID that we got
+        // as a parameter. It is the same ID that we used to
+        // generate the links to the message details
+        // and the same ID that web.php took out of the link.
+        // then we directly call the delete-method of
+        // the Message-OBject that we get back from the
+        // findOrFail function.
+        $result = Message::findOrFail($id)->delete();
+ 
+ 
+        // after that we redirect to the message list again  
+        return redirect('/messages');        
+    } 
+ 
 }
