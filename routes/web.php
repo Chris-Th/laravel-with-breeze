@@ -35,11 +35,12 @@ Route::get('/messages', [MessageController::class, 'showAll']);
 
 Route::post('/create', [MessageController::class, 'create']);
 
-Route::get('/message/{id}', [MessageController::class, 'details']);
+Route::middleware('auth')->group(function () {
 
-Route::delete('/message/{id}', [MessageController::class, 'delete']);
+    Route::get('/message/{id}', [MessageController::class, 'details']);
+    Route::delete('/message/{id}', [MessageController::class, 'delete']);
 
-
+});
 
 
  
